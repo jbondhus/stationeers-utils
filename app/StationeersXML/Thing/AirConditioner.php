@@ -5,9 +5,9 @@ namespace App\StationeersXML\Thing;
 
 use App\StationeersXML\Thing;
 
-class Circuitboard extends Thing
+class AirConditioner extends Thing
 {
-    public const TYPE = 'circuit_board';
+    public const TYPE = 'air_conditioner';
 
     public function __construct($dom_element)
     {
