@@ -13,6 +13,8 @@ class Thing
     protected $reference_id;
     protected $parent_reference_id;
 
+    public const TYPE = 'generic';
+
     /**
      * Thing constructor.
      * @param DOMElement $dom_element
