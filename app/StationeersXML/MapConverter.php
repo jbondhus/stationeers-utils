@@ -4,6 +4,7 @@
 namespace App\StationeersXML;
 
 
+use App\StationeersXML\Thing\Door;
 use DOMElement;
 use FluidXml\FluidXml;
 
@@ -26,6 +27,7 @@ class MapConverter
         'DeviceImportExportSaveData' => Thing\DeviceImportExport::class,
         'DeviceImportSaveData' => Thing\DeviceImport::class,
         'DeviceInputOutputImportExportSaveData' => Thing\DeviceInputOutputImportExport::class,
+        'DiodeSlideSaveData' => Thing\DiodeSlide::class,
         'DoorSaveData' => Thing\Door::class,
         'DynamicThingSaveData' => Thing\DynamicThing::class,
         'ElevatorCarrageSaveData' => Thing\ElevatorCarrage::class,
