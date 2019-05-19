@@ -74,6 +74,40 @@ class MapConverter
         $this->doc = new FluidXml($xml);
     }
 
+    public function get_pipe_networks()
+    {
+        $networks = $this->doc->query('/WorldData/PipeNetworks/NetworkId')->array();
+
+        $network_ids = [];
+
+        /**
+         * @var DOMElement $network
+         */
+        foreach ($networks as $network)
+        {
+            $network_ids[] = $network->nodeValue;
+        }
+
+        return $network_ids;
+    }
+
+    public function get_cable_networks()
+    {
+        $networks = $this->doc->query('/WorldData/CableNetworks/NetworkId')->array();
+
+        $network_ids = [];
+
+        /**
+         * @var DOMElement $network
+         */
+        foreach ($networks as $network)
+        {
+            $network_ids[] = $network->nodeValue;
+        }
+
+        return $network_ids;
+    }
+
     public function get_things()
     {
         $thing_elements = $this->doc->query('/WorldData/Things/ThingSaveData')->array();
