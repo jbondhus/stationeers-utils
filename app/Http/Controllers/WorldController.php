@@ -42,6 +42,9 @@ class WorldController extends Controller
 
         $thing_problems = [];
 
+        $found_cable_networks = [];
+        $found_pipe_networks = [];
+
         /**
          * @var Thing $thing
          */
@@ -63,6 +66,11 @@ class WorldController extends Controller
 
             if ($thing instanceof Thing\Cable)
             {
+                $found_cable_networks[] = [
+                    'reference_id' => $thing->get_reference_id(),
+                    'cable_network_id' => $thing->get_cable_network_id(),
+                ];
+
                 if (!isset($cable_networks_keyed[$thing->get_cable_network_id()]))
                 {
                     $problems[] = [
@@ -75,6 +83,11 @@ class WorldController extends Controller
 
             if ($thing instanceof Thing\Pipe)
             {
+                $found_pipe_networks[] = [
+                    'reference_id' => $thing->get_reference_id(),
+                    'pipe_network_id' => $thing->get_pipe_network_id(),
+                ];
+
                 if (!isset($pipe_networks_keyed[$thing->get_pipe_network_id()]))
                 {
                     $problems[] = [
@@ -94,8 +107,41 @@ class WorldController extends Controller
             }
         }
 
+        $found_cable_networks = collect($found_cable_networks)->groupBy('cable_network_id')->toArray();
+        $found_pipe_networks = collect($found_pipe_networks)->groupBy('pipe_network_id')->toArray();
+
+        $cable_network_problems = [];
+
+        foreach ($cable_networks as $cable_network)
+        {
+            if (!isset($found_cable_networks[$cable_network]))
+            {
+                $cable_network_problems[] = [
+                    'type' => 'orphaned_network',
+                    'subtype' => 'orphaned_cable_network',
+                    'cable_network_id' => $cable_network,
+                ];
+            }
+        }
+        
+        $pipe_network_problems = [];
+        
+        foreach ($pipe_networks as $pipe_network)
+        {
+            if (!isset($found_pipe_networks[$pipe_network]))
+            {
+                $pipe_network_problems[] = [
+                    'type' => 'orphaned_network',
+                    'subtype' => 'orphaned_pipe_network',
+                    'pipe_network_id' => $pipe_network,
+                ];
+            }
+        }
+
         return JsonResponse::create([
             'thing_problems' => $thing_problems,
+            'cable_network_problems' => $cable_network_problems,
+            'pipe_network_problems' => $pipe_network_problems,
         ]);
     }
 }
