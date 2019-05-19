@@ -12,7 +12,7 @@ class WorldController extends Controller
 {
     public function check_xml()
     {
-        if (Request::get('token') !== 'WhZbM3dU4tQnWrHn')
+        if (Request::get('token') !== config('app.password'))
         {
             return response(['error_message' => 'Access denied'], 401);
         }
