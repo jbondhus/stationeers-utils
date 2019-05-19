@@ -142,6 +142,7 @@ class WorldController extends Controller
             'thing_problems' => $thing_problems,
             'cable_network_problems' => $cable_network_problems,
             'pipe_network_problems' => $pipe_network_problems,
+            'peak_memory_usage' => memory_get_peak_usage(true),
         ]);
     }
 }
