@@ -24,6 +24,22 @@ class WorldController extends Controller
 
         $things = $map_converter->get_things();
 
+        $pipe_networks = $map_converter->get_pipe_networks();
+        $pipe_networks_keyed = [];
+
+        foreach ($pipe_networks as $pipe_network)
+        {
+            $pipe_networks_keyed[$pipe_network] = true;
+        }
+
+        $cable_networks = $map_converter->get_cable_networks();
+        $cable_networks_keyed = [];
+
+        foreach ($cable_networks as $cable_network)
+        {
+            $cable_networks_keyed[$cable_network] = true;
+        }
+
         $thing_problems = [];
 
         /**
@@ -39,9 +55,22 @@ class WorldController extends Controller
                 !isset($things[$thing->get_parent_reference_id()]))
             {
                 $problems[] = [
-                    'type' => 'broken_parent_reference',
+                    'type' => 'broken_reference',
+                    'subtype' => 'parent_reference_id',
                     'parent_reference_id' => $thing->get_parent_reference_id(),
                 ];
+            }
+
+            if ($thing instanceof Thing\Cable)
+            {
+                if (!isset($cable_networks_keyed[$thing->get_cable_network_id()]))
+                {
+                    $problems[] = [
+                        'type' => 'broken_reference',
+                        'subtype' => 'cable_network_id',
+                        'cable_network_id' => $thing->get_cable_network_id(),
+                    ];
+                }
             }
 
             if (count($problems) > 0)
