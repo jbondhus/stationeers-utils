@@ -44,6 +44,7 @@ class MapConverter
         'LogicSlotReaderSaveData' => Thing\LogicSlotReader::class,
         'LogicWriterSaveData' => Thing\LogicWriter::class,
         'MachineSaveData' => Thing\Machine::class,
+        'MagazineSaveData' => Thing\Magazine::class,
         'MultiMotherboardSaveData' => Thing\MultiMotherboard::class,
         'PipeSaveData' => Thing\Pipe::class,
         'PlantSaveData' => Thing\Plant::class,
