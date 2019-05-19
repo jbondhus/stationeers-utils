@@ -73,6 +73,18 @@ class WorldController extends Controller
                 }
             }
 
+            if ($thing instanceof Thing\Pipe)
+            {
+                if (!isset($pipe_networks_keyed[$thing->get_pipe_network_id()]))
+                {
+                    $problems[] = [
+                        'type' => 'broken_reference',
+                        'subtype' => 'cable_network_id',
+                        'cable_network_id' => $thing->get_pipe_network_id(),
+                    ];
+                }
+            }
+
             if (count($problems) > 0)
             {
                 $thing_problems[] = [
