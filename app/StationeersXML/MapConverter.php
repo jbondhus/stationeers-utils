@@ -126,9 +126,12 @@ class MapConverter
              */
             $class = self::THING_MAPPINGS[$type];
 
+            /**
+             * @var Thing $thing
+             */
             $thing = new $class($thing_element);
 
-            $things[] = $thing;
+            $things[$thing->get_reference_id()] = $thing;
         }
 
         return $things;
