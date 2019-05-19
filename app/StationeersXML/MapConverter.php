@@ -4,7 +4,6 @@
 namespace App\StationeersXML;
 
 
-use App\StationeersXML\Thing\Door;
 use DOMElement;
 use FluidXml\FluidXml;
 
