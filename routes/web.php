@@ -11,4 +11,5 @@
 |
 */
 
-Route::get('/', 'WorldController@check_xml');
+Route::get('/', 'UserController@landing');
+Route::get('/check_xml', 'WorldController@check_xml');
