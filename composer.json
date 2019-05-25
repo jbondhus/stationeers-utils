@@ -12,8 +12,6 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "sabre/xml": "^2.1",
-        "servo/fluidxml": "^1.21",
         "ext-dom": "^7.1.3",
         "ext-json": "^7.1.3",
         "ext-simplexml": "^7.1.3"
