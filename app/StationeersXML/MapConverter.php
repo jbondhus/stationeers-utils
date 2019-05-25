@@ -73,21 +73,18 @@ class MapConverter
     {
         $this->xml = $xml;
 
-        $this->doc = new FluidXml($xml);
+        $this->doc = simplexml_load_string($this->xml);
     }
 
     public function get_pipe_networks()
     {
-        $networks = $this->doc->query('/WorldData/PipeNetworks/NetworkId')->array();
+        $networks = $this->doc->PipeNetworks->NetworkId;
 
         $network_ids = [];
 
-        /**
-         * @var DOMElement $network
-         */
         foreach ($networks as $network)
         {
-            $network_ids[] = $network->nodeValue;
+            $network_ids[] = (string)$network;
         }
 
         return $network_ids;
@@ -95,16 +92,13 @@ class MapConverter
 
     public function get_cable_networks()
     {
-        $networks = $this->doc->query('/WorldData/CableNetworks/NetworkId')->array();
+        $networks = $this->doc->CableNetworks->NetworkId;
 
         $network_ids = [];
 
-        /**
-         * @var DOMElement $network
-         */
         foreach ($networks as $network)
         {
-            $network_ids[] = $network->nodeValue;
+            $network_ids[] = (string)$network;
         }
 
         return $network_ids;
@@ -112,11 +106,9 @@ class MapConverter
 
     public function get_things()
     {
-        $data =  simplexml_load_string($this->xml);
-
         $things = [];
 
-        foreach ($data->Things->ThingSaveData as $thing_element)
+        foreach ($this->doc->Things->ThingSaveData as $thing_element)
         {
             $type = (string)$thing_element->attributes('xsi', true)->type;
 
