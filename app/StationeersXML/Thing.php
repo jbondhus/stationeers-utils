@@ -5,6 +5,7 @@ namespace App\StationeersXML;
 
 
 use DOMElement;
+use SimpleXMLElement;
 
 class Thing
 {
@@ -29,16 +30,17 @@ class Thing
 
     protected function get_node_value($node_name)
     {
-        $data = $this->dom->getElementsByTagName($node_name);
+        /**
+         * @var $data SimpleXMLElement
+         */
+        $data = $this->dom->$node_name;
 
         if ($data->count() === 0)
         {
             return null;
         }
 
-        $dom_element = $data->item(0);
-
-        return $dom_element->nodeValue;
+        return (string)$data;
     }
 
     public function get_reference_id()

@@ -112,16 +112,13 @@ class MapConverter
 
     public function get_things()
     {
-        $thing_elements = $this->doc->query('/WorldData/Things/ThingSaveData')->array();
+        $data =  simplexml_load_string($this->xml);
 
         $things = [];
 
-        /**
-         * @var DOMElement $thing_element
-         */
-        foreach ($thing_elements as $thing_element)
+        foreach ($data->Things->ThingSaveData as $thing_element)
         {
-            $type = $thing_element->getAttribute('xsi:type');
+            $type = (string)$thing_element->attributes('xsi', true)->type;
 
             /**
              * @var Thing $class
