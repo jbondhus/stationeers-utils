@@ -28,6 +28,7 @@ class MapConverter
         'DeviceInputOutputImportExportSaveData' => Thing\DeviceInputOutputImportExport::class,
         'DiodeSlideSaveData' => Thing\DiodeSlide::class,
         'DoorSaveData' => Thing\Door::class,
+        'DynamicGasCanisterSaveData' => Thing\DynamicGasCanister::class,
         'DynamicThingSaveData' => Thing\DynamicThing::class,
         'ElevatorCarrageSaveData' => Thing\ElevatorCarrage::class,
         'FabricatorSaveData' => Thing\Fabricator::class,
