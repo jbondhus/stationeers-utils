@@ -6,12 +6,14 @@ namespace App\Http\Controllers;
 use App\StationeersXML\MapConverter;
 use App\StationeersXML\Thing;
 use Illuminate\Http\JsonResponse;
+use Request;
 
 class AjaxWorldController extends Controller
 {
     public function check_xml()
     {
-        $xml = file_get_contents(storage_path('app/world.xml'));
+        $file = Request::file('world');
+        $xml = file_get_contents($file->getRealPath());
 
         $map_converter = new MapConverter($xml);
 
@@ -116,9 +118,9 @@ class AjaxWorldController extends Controller
                 ];
             }
         }
-        
+
         $pipe_network_problems = [];
-        
+
         foreach ($pipe_networks as $pipe_network)
         {
             if (!isset($found_pipe_networks[$pipe_network]))
