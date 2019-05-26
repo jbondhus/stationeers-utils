@@ -11,5 +11,9 @@
 |
 */
 
-Route::get('/', 'UserController@landing');
-Route::get('/check_xml', 'WorldController@check_xml');
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
+Route::get('/check_xml', 'WorldController@check_xml')->middleware('auth')->name('check_xml');
+Route::post('/ajax/check_xml', 'AjaxWorldController@check_xml')->middleware('auth');
