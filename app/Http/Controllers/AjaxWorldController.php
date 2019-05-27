@@ -12,7 +12,7 @@ class AjaxWorldController extends Controller
 {
     public function check_xml()
     {
-        $file = Request::file('world');
+        $file = Request::file('file');
         $xml = file_get_contents($file->getRealPath());
 
         $map_converter = new MapConverter($xml);
