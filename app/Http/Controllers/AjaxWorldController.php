@@ -150,9 +150,11 @@ class AjaxWorldController extends Controller
         $map_stats = new MapStats($xml);
 
         $thing_counts = $map_stats->get_thing_counts();
+        $atmospherics_mols = $map_stats->get_atmospherics_mols();
 
         return JsonResponse::create([
             'thing_counts' => $thing_counts,
+            'atmospherics_mols' => $atmospherics_mols,
         ]);
     }
 }

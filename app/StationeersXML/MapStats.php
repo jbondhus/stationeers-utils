@@ -35,4 +35,39 @@ class MapStats
 
         return array_reverse(array_sort($counts));
     }
+
+    public function get_atmospherics_mols()
+    {
+        $mols = [];
+
+        $gas_types = [
+            'Oxygen',
+            'Nitrogen',
+            'CarbonDioxide',
+            'Volatiles',
+            'Chlorine',
+            'Water',
+            'NitrousOxide',
+        ];
+
+        foreach ($gas_types as $gas_type)
+        {
+            $mols[$gas_type] = 0.0;
+        }
+
+        foreach ($this->doc->Atmospheres->AtmosphereSaveData as $atmosphere_element)
+        {
+            foreach ($gas_types as $gas_type)
+            {
+                $mols[$gas_type] += floatval($atmosphere_element->$gas_type);
+            }
+        }
+
+        foreach ($mols as $type=>&$amount)
+        {
+            $amount = round($amount, 2);
+        }
+
+        return array_reverse(array_sort($mols));
+    }
 }
