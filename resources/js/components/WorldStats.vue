@@ -21,7 +21,14 @@
                         </div>
 
                         <div v-if="error === null">
-                            <pre v-highlightjs v-if="responseJson !== null"><code class="javascript">{{responseJson}}</code></pre>
+                            <div v-if="error === null">
+                                <json-viewer
+                                    v-if="response !== null"
+                                    :value="response"
+                                    :expand-depth=5
+                                    copyable
+                                ></json-viewer>
+                            </div>
                         </div>
                         <div v-else class="alert alert-danger">
                             {{error}}
@@ -38,7 +45,7 @@
         data() {
             return {
                 'error': null,
-                'responseJson': null,
+                'response': null,
                 'processing': false,
             }
         },
@@ -49,7 +56,7 @@
             startProcessing() {
                 this.processing = true;
                 this.error = null;
-                this.responseJson = null;
+                this.response = null;
             },
             endProcessing() {
                 this.processing = false;
@@ -84,7 +91,7 @@
                     }
                 ).then(function(serverResponse){
                     self.endProcessing();
-                    self.responseJson = JSON.stringify(serverResponse.data, null, 2);
+                    self.response = serverResponse.data;
                 })
                 .catch(function(error){
                     self.endProcessing();

@@ -30,42 +30,17 @@ Vue.component('world-stats', require('./components/WorldStats.vue').default);
  */
 
 import Vue from 'vue'
-import hljs from 'highlight.js'
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-Vue.use(VueAxios, axios);
+import JsonViewer from 'vue-json-viewer'
 
 import BootstrapVue from 'bootstrap-vue'
 
+Vue.use(VueAxios, axios);
 Vue.use(BootstrapVue);
-
-Vue.directive('highlightjs', {
-    deep: true,
-    bind: function (el, binding) {
-        // on first bind, highlight all targets
-        let targets = el.querySelectorAll('code');
-        targets.forEach((target) => {
-            // if a value is directly assigned to the directive, use this
-            // instead of the element content.
-            if (binding.value) {
-                target.textContent = binding.value
-            }
-            hljs.highlightBlock(target)
-        })
-    },
-    componentUpdated: function (el, binding) {
-        // after an update, re-fill the content and then highlight
-        let targets = el.querySelectorAll('code');
-        targets.forEach((target) => {
-            if (binding.value) {
-                target.textContent = binding.value;
-                hljs.highlightBlock(target)
-            }
-        })
-    }
-});
+Vue.use(JsonViewer);
 
 const app = new Vue({
     el: '#app'
