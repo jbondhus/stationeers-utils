@@ -41,8 +41,6 @@ class AjaxWorldController extends Controller
         $found_cable_networks = [];
         $found_pipe_networks = [];
 
-        $burst_pipes = [];
-
         /**
          * @var Thing $thing
          */
@@ -68,8 +66,7 @@ class AjaxWorldController extends Controller
             )
             {
                 $problems[] = [
-                    'type' => 'burnt_cable',
-                    'reference_id' => $thing->get_reference_id(),
+                    'type' => 'burnt_cable'
                 ];
             }
 
@@ -108,7 +105,6 @@ class AjaxWorldController extends Controller
                 {
                     $problems[] = [
                         'type' => 'burst_pipe',
-                        'reference_id' => $thing->get_reference_id(),
                         'pipe_network_id' => $thing->get_pipe_network_id(),
                     ];
                 }
