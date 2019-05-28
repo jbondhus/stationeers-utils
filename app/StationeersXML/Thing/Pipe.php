@@ -22,4 +22,9 @@ class Pipe extends Thing
     {
         return $this->pipe_network_id;
     }
+
+    public function get_is_burst()
+    {
+        return strtolower($this->get_node_value('IsBurst')) === 'true' ? true : false;
+    }
 }

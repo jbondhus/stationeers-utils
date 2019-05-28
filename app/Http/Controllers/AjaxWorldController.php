@@ -41,6 +41,8 @@ class AjaxWorldController extends Controller
         $found_cable_networks = [];
         $found_pipe_networks = [];
 
+        $burst_pipes = [];
+
         /**
          * @var Thing $thing
          */
@@ -55,7 +57,6 @@ class AjaxWorldController extends Controller
             {
                 $problems[] = [
                     'type' => 'broken_reference',
-                    'subtype' => 'parent_reference_id',
                     'parent_reference_id' => $thing->get_parent_reference_id(),
                 ];
             }
@@ -71,7 +72,6 @@ class AjaxWorldController extends Controller
                 {
                     $problems[] = [
                         'type' => 'broken_reference',
-                        'subtype' => 'cable_network_id',
                         'cable_network_id' => $thing->get_cable_network_id(),
                     ];
                 }
@@ -88,8 +88,16 @@ class AjaxWorldController extends Controller
                 {
                     $problems[] = [
                         'type' => 'broken_reference',
-                        'subtype' => 'cable_network_id',
-                        'cable_network_id' => $thing->get_pipe_network_id(),
+                        'pipe_network_id' => $thing->get_pipe_network_id(),
+                    ];
+                }
+
+                if ($thing->get_is_burst())
+                {
+                    $problems[] = [
+                        'type' => 'burst_pipe',
+                        'reference_id' => $thing->get_reference_id(),
+                        'pipe_network_id' => $thing->get_pipe_network_id(),
                     ];
                 }
             }
