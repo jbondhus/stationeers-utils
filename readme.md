@@ -5,7 +5,7 @@ A simple web application to provide administrative utilities for Stationeers wor
 Right now, it provides a basic world check function and a statistics function. Will be expanded later to integrate with
 dedicated servers via rcon.
 
-###Basic setup:
+### Basic setup:
 - Make a copy of .env.example to .env
 - Configure database and email connection
 - Run composer install
