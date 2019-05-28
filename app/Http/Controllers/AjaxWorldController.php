@@ -61,6 +61,18 @@ class AjaxWorldController extends Controller
                 ];
             }
 
+            if (
+                $thing instanceof Thing\Structure &&
+                starts_with($thing->get_prefab_name(), 'StructureCable') &&
+                ends_with($thing->get_prefab_name(), 'Burnt')
+            )
+            {
+                $problems[] = [
+                    'type' => 'burnt_cable',
+                    'reference_id' => $thing->get_reference_id(),
+                ];
+            }
+
             if ($thing instanceof Thing\Cable)
             {
                 $found_cable_networks[] = [
