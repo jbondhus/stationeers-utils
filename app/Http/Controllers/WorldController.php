@@ -11,4 +11,11 @@ class WorldController extends Controller
 
         ]);
     }
+
+    public function stats()
+    {
+        return view('stats', [
+
+        ]);
+    }
 }

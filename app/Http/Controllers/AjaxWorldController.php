@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\StationeersXML\MapConverter;
+use App\StationeersXML\MapStats;
 use App\StationeersXML\Thing;
 use Illuminate\Http\JsonResponse;
 use Request;
@@ -138,6 +139,20 @@ class AjaxWorldController extends Controller
             'cable_network_problems' => $cable_network_problems,
             'pipe_network_problems' => $pipe_network_problems,
             'peak_memory_usage' => memory_get_peak_usage(true),
+        ]);
+    }
+
+    public function stats()
+    {
+        $file = Request::file('file');
+        $xml = file_get_contents($file->getRealPath());
+
+        $map_stats = new MapStats($xml);
+
+        $thing_counts = $map_stats->get_thing_counts();
+
+        return JsonResponse::create([
+            'thing_counts' => $thing_counts,
         ]);
     }
 }

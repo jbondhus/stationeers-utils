@@ -38,6 +38,10 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('check_xml') }}">{{ __('Check XML') }}</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('stats') }}">{{ __('World Stats') }}</a>
+                            </li>
                         @endauth
                     </ul>
 

@@ -21,6 +21,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('world-checker', require('./components/WorldChecker.vue').default);
+Vue.component('world-stats', require('./components/WorldStats.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -38,7 +39,7 @@ Vue.use(VueAxios, axios);
 
 import BootstrapVue from 'bootstrap-vue'
 
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue);
 
 Vue.directive('highlightjs', {
     deep: true,
