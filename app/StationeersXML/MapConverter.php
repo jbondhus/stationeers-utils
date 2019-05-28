@@ -128,4 +128,17 @@ class MapConverter
 
         return $things;
     }
+
+
+    public function get_atmospheres()
+    {
+        $atmospheres = [];
+
+        foreach ($this->doc->Atmospheres->AtmosphereSaveData as $atmosphere_element)
+        {
+            $atmospheres[] = new Atmosphere($atmosphere_element);
+        }
+
+        return $atmospheres;
+    }
 }

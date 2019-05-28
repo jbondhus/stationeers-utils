@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\StationeersXML\Atmosphere;
 use App\StationeersXML\MapConverter;
 use App\StationeersXML\MapStats;
 use App\StationeersXML\Thing;
@@ -19,6 +20,29 @@ class AjaxWorldController extends Controller
         $map_converter = new MapConverter($xml);
 
         $things = $map_converter->get_things();
+        $atmospheres = $map_converter->get_atmospheres();
+
+        $atmosphere_thing_reference_ids = [];
+
+        $atmosphere_duplicate_thing_ids = [];
+
+        /**
+         * @var $atmosphere Atmosphere
+         */
+        foreach ($atmospheres as $atmosphere)
+        {
+            if ($atmosphere->get_thing_reference_id() != 0)
+            {
+                if (!isset($atmosphere_thing_reference_ids[$atmosphere->get_thing_reference_id()]))
+                {
+                    $atmosphere_thing_reference_ids[$atmosphere->get_thing_reference_id()] = true;
+                }
+                else
+                {
+                    $atmosphere_duplicate_thing_ids[] = $atmosphere->get_thing_reference_id();
+                }
+            }
+        }
 
         $pipe_networks = $map_converter->get_pipe_networks();
         $pipe_networks_keyed = [];
@@ -154,6 +178,7 @@ class AjaxWorldController extends Controller
             'thing_problems' => $thing_problems,
             'cable_network_problems' => $cable_network_problems,
             'pipe_network_problems' => $pipe_network_problems,
+            'atmosphere_duplicate_thing_ids' => $atmosphere_duplicate_thing_ids,
             'peak_memory_usage' => memory_get_peak_usage(true),
         ]);
     }
