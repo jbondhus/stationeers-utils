@@ -24,6 +24,7 @@ class AjaxWorldController extends Controller
         $atmospheres = $map_converter->get_atmospheres();
 
         $atmosphere_thing_reference_ids = [];
+        $atmosphere_network_reference_ids = [];
 
         $atmosphere_duplicate_thing_ids = [];
 
@@ -41,6 +42,14 @@ class AjaxWorldController extends Controller
                 else
                 {
                     $atmosphere_duplicate_thing_ids[] = $atmosphere->get_thing_reference_id();
+                }
+            }
+
+            if ($atmosphere->get_network_reference_id() != 0)
+            {
+                if (!isset($atmosphere_network_reference_ids[$atmosphere->get_network_reference_id()]))
+                {
+                    $atmosphere_network_reference_ids[$atmosphere->get_network_reference_id()] = true;
                 }
             }
         }
@@ -175,10 +184,35 @@ class AjaxWorldController extends Controller
             }
         }
 
+        $atmosphere_problems = [];
+
+        foreach (array_keys($atmosphere_thing_reference_ids) as $atmosphere_thing_reference_id)
+        {
+            if (!isset($things[$atmosphere_thing_reference_id]))
+            {
+                $atmosphere_problems[] = [
+                    'type' => 'broken_reference',
+                    'thing_reference_id' => $atmosphere_thing_reference_id,
+                ];
+            }
+        }
+
+        foreach (array_keys($atmosphere_network_reference_ids) as $atmosphere_network_reference_id)
+        {
+            if (!isset($pipe_networks_keyed[$atmosphere_network_reference_id]))
+            {
+                $atmosphere_problems[] = [
+                    'type' => 'broken_reference',
+                    'network_reference_id' => $atmosphere_network_reference_id,
+                ];
+            }
+        }
+
         return JsonResponse::create([
             'thing_problems' => $thing_problems,
             'cable_network_problems' => $cable_network_problems,
             'pipe_network_problems' => $pipe_network_problems,
+            'atmosphere_problems' => $atmosphere_problems,
             'atmosphere_duplicate_thing_ids' => $atmosphere_duplicate_thing_ids,
             'peak_memory_usage' => memory_get_peak_usage(true),
         ]);
