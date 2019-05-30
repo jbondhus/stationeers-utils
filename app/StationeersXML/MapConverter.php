@@ -4,9 +4,6 @@
 namespace App\StationeersXML;
 
 
-use DOMElement;
-use FluidXml\FluidXml;
-
 class MapConverter
 {
     protected $xml;
