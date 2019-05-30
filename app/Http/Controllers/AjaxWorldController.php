@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 
-use App\StationeersXML\Atmosphere;
+use App\StationeersXML\AtmosphereSaveData;
 use App\StationeersXML\MapConverter;
 use App\StationeersXML\MapStats;
 use App\StationeersXML\Thing;
+use App\StationeersXML\ThingSaveData;
 use Illuminate\Http\JsonResponse;
 use Request;
 
@@ -27,7 +28,7 @@ class AjaxWorldController extends Controller
         $atmosphere_duplicate_thing_ids = [];
 
         /**
-         * @var $atmosphere Atmosphere
+         * @var $atmosphere AtmosphereSaveData
          */
         foreach ($atmospheres as $atmosphere)
         {
@@ -66,7 +67,7 @@ class AjaxWorldController extends Controller
         $found_pipe_networks = [];
 
         /**
-         * @var Thing $thing
+         * @var ThingSaveData $thing
          */
         foreach ($things as $thing)
         {
@@ -84,7 +85,7 @@ class AjaxWorldController extends Controller
             }
 
             if (
-                $thing instanceof Thing\Structure &&
+                $thing instanceof Thing\StructureSaveData &&
                 starts_with($thing->get_prefab_name(), 'StructureCable') &&
                 ends_with($thing->get_prefab_name(), 'Burnt')
             )
@@ -94,7 +95,7 @@ class AjaxWorldController extends Controller
                 ];
             }
 
-            if ($thing instanceof Thing\Cable)
+            if ($thing instanceof Thing\CableSaveSaveData)
             {
                 $found_cable_networks[] = [
                     'reference_id' => $thing->get_reference_id(),
@@ -110,7 +111,7 @@ class AjaxWorldController extends Controller
                 }
             }
 
-            if ($thing instanceof Thing\Pipe)
+            if ($thing instanceof Thing\PipeSaveData)
             {
                 $found_pipe_networks[] = [
                     'reference_id' => $thing->get_reference_id(),
