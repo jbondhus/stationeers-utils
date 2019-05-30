@@ -22,3 +22,24 @@ npm ci && npm run prod
 ```
 - If necessary, update your server config to increase the upload limit size to an appropriate value - on large worlds,
 you will want to set this to around 100 MiB
+
+
+### Class structure
+- `ThingSaveData`
+	- `DynamicThingSaveData`
+		- `AtmosphericItemSaveData`
+		- `MotherboardSaveData`
+			- `CircuitBoardSaveData`
+			- `MultiMotherboardSaveData`
+		- `StackableSaveData`
+		- `EntitySaveData`
+- `StructureSaveData`
+	- `DeviceImportSaveData`
+		- `DeviceImportExportSaveData`
+			- `SlotHandlerBaseSaveData`
+	- `MachineSaveData`
+	- `DeviceAtmosphericSaveData`
+		- `DeviceInputOutputImportSaveData`
+			- `DeviceInputOutputImportExportSaveData`
+	- `RotatableDeviceSaveData`
+	- `LogicBaseSaveData`
