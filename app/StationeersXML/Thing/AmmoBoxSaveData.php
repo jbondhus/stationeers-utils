@@ -5,8 +5,6 @@ namespace App\StationeersXML\Thing;
 
 class AmmoBoxSaveData extends DynamicThingSaveData
 {
-    public const TYPE = 'ammo_box';
-
     public function __construct($dom_element)
     {
         parent::__construct($dom_element);

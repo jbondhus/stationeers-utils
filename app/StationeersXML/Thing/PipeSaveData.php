@@ -5,8 +5,6 @@ namespace App\StationeersXML\Thing;
 
 class PipeSaveData extends StructureSaveData
 {
-    public const TYPE = 'pipe';
-
     protected $pipe_network_id;
 
     public function __construct($dom_element)

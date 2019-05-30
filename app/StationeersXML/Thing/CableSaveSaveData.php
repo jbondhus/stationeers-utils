@@ -5,8 +5,6 @@ namespace App\StationeersXML\Thing;
 
 class CableSaveSaveData extends StructureSaveData
 {
-    public const TYPE = 'cable';
-
     protected $cable_network_id;
 
     public function __construct($dom_element)

@@ -14,8 +14,6 @@ class ThingSaveData
     protected $parent_reference_id;
     protected $prefab_name;
 
-    public const TYPE = 'generic';
-
     /**
      * Thing constructor.
      * @param SimpleXMLElement $dom_element
